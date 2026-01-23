@@ -91,33 +91,42 @@ const App = {
                 DataLoader.loadInstallationSteps()
             ]);
             
-            // 🔧 GUARDAR RECUENTOS ESPERADOS
-            this.expectedScreenshotCount = screenshots.length;
+            // 🔧 GUARDAR RECUENTOS ESPERADOS (videos no cuentan como imágenes)
+            this.expectedScreenshotCount = screenshots.filter(s => s.type !== 'video').length;
             this.expectedFeatureCount = features.length;
 
             console.log(`✅ Data loaded:`, { 
                 features: features.length, 
-                screenshots: screenshots.length, 
+                screenshots: screenshots.length,
+                images: this.expectedScreenshotCount,
                 steps: steps.length 
             });
 
             // Verificar contenedores
-            const featuresContainer = document.getElementById('features-grid');
+            const trainingContainer = document.getElementById('features-grid-training');
+            const productivityContainer = document.getElementById('features-grid-productivity');
             const screenshotsContainer = document.getElementById('screenshots-gallery');
             const stepsContainer = document.getElementById('installation-steps');
 
-            if (!featuresContainer || !screenshotsContainer || !stepsContainer) {
-                console.error('❌ Containers not found in DOM');
+            if (!trainingContainer || !productivityContainer) {
+                console.error('❌ Feature containers not found in DOM');
+                return;
+            }
+            
+            if (!screenshotsContainer || !stepsContainer) {
+                console.error('❌ Screenshots/Steps containers not found in DOM');
                 return;
             }
 
             // 🔧 RENDERIZADO SECUENCIAL CON AWAIT
-            // 1. Features (con verificación)
+            
+            // 1. Features (con verificación por categoría)
             if (features.length > 0) {
                 DOMBuilder.renderFeatures(features);
                 await this.waitForFeaturesToRender();
             } else {
-                featuresContainer.innerHTML = '<p class="loading-placeholder">❌ Error cargando funcionalidades</p>';
+                trainingContainer.innerHTML = '<p class="loading-placeholder">❌ Error cargando funcionalidades</p>';
+                productivityContainer.innerHTML = '<p class="loading-placeholder">❌ Error cargando funcionalidades</p>';
             }
 
             // 2. Steps (simple, no requiere verificación especial)
@@ -134,7 +143,7 @@ const App = {
                 // ✅ ESPERAR A QUE TODAS LAS IMÁGENES ESTÉN RENDERIZADAS
                 await this.waitForScreenshotsToRender();
                 
-                // ✅ SOLO ENTONCES ADJUNTAR LIGHTBOX
+                // ✅ SOLO ENTONCES ADJUNTAR LIGHTBOX (solo a imágenes, no a videos)
                 await this.attachLightboxListeners();
             } else {
                 screenshotsContainer.innerHTML = '<p class="loading-placeholder">❌ Error cargando capturas</p>';
@@ -155,7 +164,12 @@ const App = {
 
         } catch (error) {
             console.error('❌ Error loading content:', error);
-            const containers = ['features-grid', 'screenshots-gallery', 'installation-steps'];
+            const containers = [
+                'features-grid-training', 
+                'features-grid-productivity', 
+                'screenshots-gallery', 
+                'installation-steps'
+            ];
             containers.forEach(id => {
                 const container = document.getElementById(id);
                 if (container) {

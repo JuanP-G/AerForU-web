@@ -1,6 +1,6 @@
 /**
  * Constructor de elementos DOM dinámicos - OPTIMIZADO
- * Con soporte para responsive images (srcset)
+ * Con soporte para responsive images (srcset) y videos de YouTube
  */
 
 export const DOMBuilder = {
@@ -23,7 +23,7 @@ export const DOMBuilder = {
     },
 
     /**
-     * Crea una tarjeta de captura de pantalla O video
+     * Crea una tarjeta de captura de pantalla O video de YouTube
      * @param {Object} screenshot - Datos de la captura o video
      * @returns {HTMLElement}
      */
@@ -31,8 +31,9 @@ export const DOMBuilder = {
         const article = document.createElement('article');
         article.className = 'screenshot-card fade-in';
         
+        // Si es un video de YouTube
         if (screenshot.type === 'video') {
-            // Card especial para video de YouTube
+            article.classList.add('video-card');
             article.innerHTML = `
                 <div class="screenshot-wrapper video-wrapper">
                     <iframe 
@@ -51,53 +52,58 @@ export const DOMBuilder = {
                     <p>${screenshot.description}</p>
                 </div>
             `;
-        } else {
-            // Card normal de imagen
-            const imagePath = screenshot.image;
-            const imageExt = imagePath.split('.').pop();
-            const imageBase = imagePath.replace(`.${imageExt}`, '');
-            
-            article.innerHTML = `
-                <div class="screenshot-wrapper">
-                    <picture>
-                        <source 
-                            media="(max-width: 480px)" 
-                            srcset="${imageBase}-400w.${imageExt}"
-                            type="image/${imageExt}">
-                        
-                        <source 
-                            media="(max-width: 768px)" 
-                            srcset="${imageBase}-768w.${imageExt}"
-                            type="image/${imageExt}">
-                        
-                        <img 
-                            src="${imagePath}" 
-                            alt="${screenshot.alt}" 
-                            class="screenshot-img"
-                            loading="lazy"
-                            width="1200"
-                            height="675"
-                            decoding="async">
-                    </picture>
-                    <div class="screenshot-overlay"></div>
-                </div>
-                <div class="screenshot-caption">
-                    <h3>${screenshot.icon} ${screenshot.title}</h3>
-                    <p>${screenshot.description}</p>
-                </div>
-            `;
+            return article;
         }
+        
+        // Si es una imagen normal
+        const imagePath = screenshot.image;
+        const imageExt = imagePath.split('.').pop();
+        const imageBase = imagePath.replace(`.${imageExt}`, '');
+        
+        article.innerHTML = `
+            <div class="screenshot-wrapper">
+                <picture>
+                    <source 
+                        media="(max-width: 480px)" 
+                        srcset="${imageBase}-400w.${imageExt}"
+                        type="image/${imageExt}">
+                    
+                    <source 
+                        media="(max-width: 768px)" 
+                        srcset="${imageBase}-768w.${imageExt}"
+                        type="image/${imageExt}">
+                    
+                    <img 
+                        src="${imagePath}" 
+                        alt="${screenshot.alt}" 
+                        class="screenshot-img"
+                        loading="lazy"
+                        width="1200"
+                        height="675"
+                        decoding="async">
+                </picture>
+                <div class="screenshot-overlay"></div>
+            </div>
+            <div class="screenshot-caption">
+                <h3>${screenshot.icon} ${screenshot.title}</h3>
+                <p>${screenshot.description}</p>
+            </div>
+        `;
         
         return article;
     },
 
     /**
      * FALLBACK: Crea screenshot card sin versiones responsivas
-     * Usar si no tienes las imágenes redimensionadas
      */
     createScreenshotCardSimple(screenshot) {
         const article = document.createElement('article');
         article.className = 'screenshot-card fade-in';
+        
+        // Si es video
+        if (screenshot.type === 'video') {
+            return this.createScreenshotCard(screenshot);
+        }
         
         article.innerHTML = `
             <div class="screenshot-wrapper">
@@ -129,7 +135,6 @@ export const DOMBuilder = {
         const article = document.createElement('article');
         article.className = 'step fade-in';
         
-        // Crear header
         const header = document.createElement('div');
         header.className = 'step-header';
         header.innerHTML = `
@@ -137,14 +142,11 @@ export const DOMBuilder = {
             <h3>${step.title}</h3>
         `;
         
-        // Crear párrafo de descripción
         const description = document.createElement('p');
         
-        // Si no hay código, usar innerHTML directamente
         if (!step.code) {
             description.innerHTML = step.description;
         } else {
-            // Si hay código, añadirlo después
             description.innerHTML = step.description;
             const code = document.createElement('code');
             code.textContent = step.code;
@@ -152,11 +154,9 @@ export const DOMBuilder = {
             description.appendChild(code);
         }
         
-        // Añadir elementos al article
         article.appendChild(header);
         article.appendChild(description);
         
-        // Añadir enlace si existe
         if (step.link) {
             const linkPara = document.createElement('p');
             linkPara.innerHTML = `<a href="${step.link.url}" target="_blank" rel="noopener" style="${step.link.style || ''}">${step.link.text}</a>`;
@@ -167,7 +167,7 @@ export const DOMBuilder = {
     },
 
     /**
-     * Renderiza funcionalidades en contenedores separados por categoría
+     * Renderiza funcionalidades divididas por categoría
      * @param {Array} features - Array de funcionalidades
      */
     renderFeatures(features) {
@@ -175,7 +175,7 @@ export const DOMBuilder = {
         const productivityContainer = document.getElementById('features-grid-productivity');
         
         if (!trainingContainer || !productivityContainer) {
-            console.warn('Feature containers not found');
+            console.error('❌ Feature containers not found');
             return;
         }
 
@@ -187,6 +187,11 @@ export const DOMBuilder = {
         // Separar por categoría
         const trainingFeatures = sortedFeatures.filter(f => f.category === 'training');
         const productivityFeatures = sortedFeatures.filter(f => f.category === 'productivity');
+        
+        console.log(`📊 Rendering features:`, { 
+            training: trainingFeatures.length, 
+            productivity: productivityFeatures.length 
+        });
         
         // Renderizar entrenamiento
         trainingFeatures.forEach(feature => {
@@ -200,14 +205,14 @@ export const DOMBuilder = {
             productivityContainer.appendChild(card);
         });
         
-        console.log(`✅ ${trainingFeatures.length} training features + ${productivityFeatures.length} productivity features rendered`);
+        console.log(`✅ ${trainingFeatures.length} training + ${productivityFeatures.length} productivity features rendered`);
     },
 
     /**
-     * Renderiza capturas en el contenedor - OPTIMIZADO
+     * Renderiza capturas en el contenedor
      * @param {Array} screenshots - Array de capturas
      * @param {String} containerId - ID del contenedor
-     * @param {Boolean} useResponsive - Usar imágenes responsivas (requiere versiones redimensionadas)
+     * @param {Boolean} useResponsive - Usar imágenes responsivas
      */
     renderScreenshots(screenshots, containerId = 'screenshots-gallery', useResponsive = false) {
         const container = document.getElementById(containerId);
@@ -219,37 +224,24 @@ export const DOMBuilder = {
         container.innerHTML = '';
         const sortedScreenshots = screenshots.sort((a, b) => a.order - b.order);
 
+        console.log(`📸 Rendering ${sortedScreenshots.length} screenshots (${sortedScreenshots.filter(s => s.type === 'video').length} videos)`);
+
         // Decidir qué método usar
         const createMethod = useResponsive ? 
             this.createScreenshotCard.bind(this) : 
             this.createScreenshotCardSimple.bind(this);
 
-        // Renderizar en chunks para no bloquear
-        const chunkSize = 2;
-        let index = 0;
+        // Renderizar todos
+        sortedScreenshots.forEach(screenshot => {
+            const card = createMethod(screenshot);
+            container.appendChild(card);
+        });
 
-        const renderChunk = () => {
-            const chunk = sortedScreenshots.slice(index, index + chunkSize);
-            
-            chunk.forEach(screenshot => {
-                const card = createMethod(screenshot);
-                container.appendChild(card);
-            });
-
-            index += chunkSize;
-
-            if (index < sortedScreenshots.length) {
-                requestAnimationFrame(renderChunk);
-            } else {
-                console.log(`✅ ${sortedScreenshots.length} screenshots rendered (responsive: ${useResponsive})`);
-            }
-        };
-
-        renderChunk();
+        console.log(`✅ ${sortedScreenshots.length} items rendered (videos + images)`);
     },
 
     /**
-     * Renderiza pasos de instalación en el contenedor
+     * Renderiza pasos de instalación
      * @param {Array} steps - Array de pasos
      * @param {String} containerId - ID del contenedor
      */
@@ -263,7 +255,6 @@ export const DOMBuilder = {
         container.innerHTML = '';
         const sortedSteps = steps.sort((a, b) => a.number - b.number);
 
-        // Renderizar todos de una vez (son pocos)
         sortedSteps.forEach(step => {
             const stepElement = this.createInstallationStep(step);
             container.appendChild(stepElement);
@@ -273,7 +264,7 @@ export const DOMBuilder = {
     },
 
     /**
-     * UTILIDAD: Verifica si existen las versiones redimensionadas de una imagen
+     * Verifica si existen las versiones redimensionadas de una imagen
      * @param {String} imagePath - Ruta de la imagen
      * @returns {Promise<Boolean>}
      */
@@ -312,13 +303,19 @@ export const DOMBuilder = {
             return;
         }
 
-        // Verificar si existe la primera versión responsive
-        const firstImage = screenshots[0].image;
-        const hasResponsive = await this.checkResponsiveVersionsExist(firstImage);
+        // Buscar la primera imagen (no video)
+        const firstImage = screenshots.find(s => s.type !== 'video');
+        
+        if (!firstImage || !firstImage.image) {
+            console.log('📸 Only videos found, rendering without responsive check');
+            this.renderScreenshots(screenshots, containerId, false);
+            return;
+        }
+
+        const hasResponsive = await this.checkResponsiveVersionsExist(firstImage.image);
 
         console.log(`📸 Responsive images ${hasResponsive ? 'FOUND' : 'NOT FOUND'} - using ${hasResponsive ? 'responsive' : 'simple'} mode`);
 
-        // Renderizar con el modo apropiado
         this.renderScreenshots(screenshots, containerId, hasResponsive);
     }
 };
