@@ -1,58 +1,45 @@
 {
   "screenshots": [
     {
-      "id": "categories-panel",
-      "image": "./assets/images/screenshots/screenshot-2.webp",
-      "alt": "Panel lateral AeRForU mostrando categorías de problemas y recomendaciones de ejercicios similares en Acepta el Reto",
-      "icon": "🏷️",
-      "title": "Categorías y Problemas Similares",
-      "description": "Panel lateral con categorías de algoritmos y recomendaciones personalizadas",
+      "id": "video-demo",
+      "type": "video",
+      "videoId": "G-cCFW14NPo",
+      "thumbnail": "./assets/images/screenshots/screenshot-1.webp",
+      "alt": "Video demostración completa de AeRForU en Acepta el Reto",
+      "icon": "🎬",
+      "title": "Demo Completa en Vídeo",
+      "description": "Descubre todas las funcionalidades de AeRForU en acción. Mira cómo mejora tu experiencia en Acepta el Reto.",
       "order": 1
     },
     {
-      "id": "statistics",
-      "image": "./assets/images/screenshots/screenshot-4.webp",
-      "alt": "Gráficos de estadísticas detalladas mostrando lenguajes de programación utilizados y envíos en Acepta el Reto",
-      "icon": "📈",
-      "title": "Estadísticas Detalladas de Programación",
-      "description": "Visualiza tus métricas, lenguajes más usados y progreso en programación competitiva",
+      "id": "problem-list",
+      "type": "image",
+      "image": "./assets/images/screenshots/screenshot-5.webp",
+      "alt": "Lista de problemas de Acepta el Reto con marcado de colores AC y WA usando AeRForU",
+      "icon": "📋",
+      "title": "Listado de Problemas Mejorado",
+      "description": "Visualiza dificultad y progreso con marcado visual claro: AC en verde, intentados en rojo",
       "order": 2
     },
     {
-      "id": "visual-marking",
-      "image": "./assets/images/screenshots/screenshot-5.webp",
-      "alt": "Lista de problemas de Acepta el Reto con marcado de colores AC y WA usando AeRForU",
-      "icon": "✅",
-      "title": "Marcado Visual de Problemas Resueltos",
-      "description": "Identifica visualmente tu progreso con colores para AC y WA",
+      "id": "problem-view",
+      "type": "image",
+      "image": "./assets/images/screenshots/screenshot-1.webp",
+      "alt": "Vista de enunciado de problema en Acepta el Reto con categorías y dificultad mostradas por AeRForU",
+      "icon": "📄",
+      "title": "Vista de Enunciado Enriquecida",
+      "description": "Categorías desplegables, problemas similares y nivel de dificultad en el enunciado",
       "order": 3
     },
     {
-      "id": "settings-panel",
-      "image": "./assets/images/screenshots/screenshot-7.webp",
-      "alt": "Panel de configuración de la extensión AeRForU para personalizar colores y funcionalidades",
-      "icon": "⚙️",
-      "title": "Panel de Configuración Personalizable",
-      "description": "Personaliza colores, funcionalidades y ajusta AeRForU a tus preferencias",
+      "id": "statistics",
+      "type": "image",
+      "image": "./assets/images/screenshots/screenshot-4.webp",
+      "alt": "Gráficos de estadísticas detalladas mostrando lenguajes de programación utilizados y envíos en Acepta el Reto",
+      "icon": "📊",
+      "title": "Estadísticas Detalladas",
+      "description": "Visualiza tus métricas, lenguajes más usados y progreso en programación competitiva",
       "order": 4
-    },
-    {
-      "id": "installation",
-      "image": "./assets/images/screenshots/screenshot-8.webp",
-      "alt": "Extensión AeRForU instalada correctamente en el navegador Chrome",
-      "icon": "🔧",
-      "title": "Instalación Simple y Rápida",
-      "description": "Instala AeRForU en poco tiempo en Chrome o Edge (u otros buscadores basados en Chromium). Mantenlo actualizado para disfrutar de todas las funcionalidades.",
-      "order": 5
-    },
-    {
-      "id": "problem-view",
-      "image": "./assets/images/screenshots/screenshot-1.webp",
-      "alt": "Vista de enunciado de problema en Acepta el Reto con categorías y dificultad mostradas por AeRForU",
-      "icon": "📋",
-      "title": "Vista de Enunciado Mejorada",
-      "description": "Accede a categorías y dificultad directamente desde el enunciado del problema",
-      "order": 6
     }
   ]
 }

@@ -3,44 +3,58 @@
     {
       "id": "difficulty-levels",
       "icon": "📊",
-      "title": "Niveles de Dificultad de Problemas",
-      "description": "Visualiza el nivel de dificultad de cada problema de programación directamente en la lista de Acepta el Reto, facilitando la selección según tu nivel de experiencia.",
+      "title": "Dificultad Visible",
+      "description": "Visualiza el nivel de dificultad directamente en la lista de problemas y en tu perfil. ¡Se acabó entrar uno por uno!",
+      "category": "training",
       "order": 1
-    },
-    {
-      "id": "visual-marking",
-      "icon": "✅",
-      "title": "Marcado Visual de Problemas Resueltos",
-      "description": "Identifica rápidamente qué problemas has resuelto correctamente (AC - Accepted) y cuáles has intentado sin éxito (WA / CE / RTE / TLE / MLE etc) con colores distintivos y modificables.",
-      "order": 2
     },
     {
       "id": "categories",
       "icon": "🏷️",
-      "title": "Categorías de Problemas de Programación",
-      "description": "Accede a las categorías y temas de algoritmos asociados a cada problema directamente desde su página de enunciado en Acepta el Reto.",
-      "order": 3
+      "title": "Categorías y Etiquetas",
+      "description": "Desplegable con las categorías (grafos, DP, ad-hoc) en la página del enunciado para identificar rápidamente el tipo de problema.",
+      "category": "training",
+      "order": 2
     },
     {
       "id": "similar-problems",
-      "icon": "🔗",
-      "title": "Recomendaciones de Problemas Similares",
-      "description": "Descubre problemas relacionados con recomendaciones inteligentes basadas en categorías compartidas y dificultad similar (los ya realizados apareceran en verde).",
-      "order": 4
+      "icon": "💡",
+      "title": "Problemas Similares",
+      "description": "Sugerencias automáticas de problemas parecidos para reforzar tu aprendizaje y mejorar en temas específicos.",
+      "category": "training",
+      "order": 3
     },
     {
-      "id": "ranking-links",
-      "icon": "👥",
-      "title": "Enlaces Directos en Rankings",
-      "description": "Hiperenlaces directos a perfiles de usuarios en el ranking del concurso \"24 en 23\" para facilitar la navegación.",
-      "order": 5
+      "id": "visual-marking",
+      "icon": "✅",
+      "title": "Rastreo de Progreso",
+      "description": "Marcado visual claro de problemas Resueltos (AC en verde) e Intentados (WA/CE/TLE en rojo) en los listados.",
+      "category": "productivity",
+      "order": 4
     },
     {
       "id": "code-download",
       "icon": "💾",
-      "title": "Descarga de Código Fuente",
-      "description": "Descarga fácilmente el código fuente de todos tus envíos aceptados (AC) para revisar tus soluciones offline.",
+      "title": "Backup de Código",
+      "description": "Descarga en un clic todo el código de tus envíos con resultado Accepted para tener tu propio repositorio local.",
+      "category": "productivity",
+      "order": 5
+    },
+    {
+      "id": "random-problem",
+      "icon": "🎲",
+      "title": "Modo Exploración",
+      "description": "Botón para saltar a problemas aleatorios desde la página de inicio y descubrir nuevos desafíos.",
+      "category": "productivity",
       "order": 6
+    },
+    {
+      "id": "quick-links",
+      "icon": "🔗",
+      "title": "Enlaces Rápidos",
+      "description": "Acceso directo a las estadísticas de AER Stats y otras herramientas útiles desde la interfaz.",
+      "category": "productivity",
+      "order": 7
     }
   ]
 }

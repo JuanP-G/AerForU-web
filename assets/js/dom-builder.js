@@ -23,52 +23,70 @@ export const DOMBuilder = {
     },
 
     /**
-     * Crea una tarjeta de captura de pantalla CON RESPONSIVE IMAGES
-     * @param {Object} screenshot - Datos de la captura
+     * Crea una tarjeta de captura de pantalla O video
+     * @param {Object} screenshot - Datos de la captura o video
      * @returns {HTMLElement}
      */
     createScreenshotCard(screenshot) {
         const article = document.createElement('article');
         article.className = 'screenshot-card fade-in';
         
-        // Extraer información de la imagen
-        const imagePath = screenshot.image;
-        const imageExt = imagePath.split('.').pop();
-        const imageBase = imagePath.replace(`.${imageExt}`, '');
-        
-        // OPTIMIZACIÓN: Usar <picture> con múltiples resoluciones
-        article.innerHTML = `
-            <div class="screenshot-wrapper">
-                <picture>
-                    <!-- Móvil pequeño: 400px -->
-                    <source 
-                        media="(max-width: 480px)" 
-                        srcset="${imageBase}-400w.${imageExt}"
-                        type="image/${imageExt}">
-                    
-                    <!-- Tablet: 768px -->
-                    <source 
-                        media="(max-width: 768px)" 
-                        srcset="${imageBase}-768w.${imageExt}"
-                        type="image/${imageExt}">
-                    
-                    <!-- Desktop: Original (1200px) -->
-                    <img 
-                        src="${imagePath}" 
-                        alt="${screenshot.alt}" 
-                        class="screenshot-img"
+        if (screenshot.type === 'video') {
+            // Card especial para video de YouTube
+            article.innerHTML = `
+                <div class="screenshot-wrapper video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${screenshot.videoId}" 
+                        title="${screenshot.alt}"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen
                         loading="lazy"
-                        width="1200"
-                        height="675"
-                        decoding="async">
-                </picture>
-                <div class="screenshot-overlay"></div>
-            </div>
-            <div class="screenshot-caption">
-                <h3>${screenshot.icon} ${screenshot.title}</h3>
-                <p>${screenshot.description}</p>
-            </div>
-        `;
+                        class="youtube-video">
+                    </iframe>
+                </div>
+                <div class="screenshot-caption">
+                    <h3>${screenshot.icon} ${screenshot.title}</h3>
+                    <p>${screenshot.description}</p>
+                </div>
+            `;
+        } else {
+            // Card normal de imagen
+            const imagePath = screenshot.image;
+            const imageExt = imagePath.split('.').pop();
+            const imageBase = imagePath.replace(`.${imageExt}`, '');
+            
+            article.innerHTML = `
+                <div class="screenshot-wrapper">
+                    <picture>
+                        <source 
+                            media="(max-width: 480px)" 
+                            srcset="${imageBase}-400w.${imageExt}"
+                            type="image/${imageExt}">
+                        
+                        <source 
+                            media="(max-width: 768px)" 
+                            srcset="${imageBase}-768w.${imageExt}"
+                            type="image/${imageExt}">
+                        
+                        <img 
+                            src="${imagePath}" 
+                            alt="${screenshot.alt}" 
+                            class="screenshot-img"
+                            loading="lazy"
+                            width="1200"
+                            height="675"
+                            decoding="async">
+                    </picture>
+                    <div class="screenshot-overlay"></div>
+                </div>
+                <div class="screenshot-caption">
+                    <h3>${screenshot.icon} ${screenshot.title}</h3>
+                    <p>${screenshot.description}</p>
+                </div>
+            `;
+        }
         
         return article;
     },
@@ -149,42 +167,40 @@ export const DOMBuilder = {
     },
 
     /**
-     * Renderiza funcionalidades en el contenedor
+     * Renderiza funcionalidades en contenedores separados por categoría
      * @param {Array} features - Array de funcionalidades
-     * @param {String} containerId - ID del contenedor
      */
-    renderFeatures(features, containerId = 'features-grid') {
-        const container = document.getElementById(containerId);
-        if (!container) {
-            console.warn(`Container ${containerId} not found`);
+    renderFeatures(features) {
+        const trainingContainer = document.getElementById('features-grid-training');
+        const productivityContainer = document.getElementById('features-grid-productivity');
+        
+        if (!trainingContainer || !productivityContainer) {
+            console.warn('Feature containers not found');
             return;
         }
 
-        container.innerHTML = '';
+        trainingContainer.innerHTML = '';
+        productivityContainer.innerHTML = '';
+        
         const sortedFeatures = features.sort((a, b) => a.order - b.order);
-
-        // Renderizar en chunks para no bloquear el main thread
-        const chunkSize = 3;
-        let index = 0;
-
-        const renderChunk = () => {
-            const chunk = sortedFeatures.slice(index, index + chunkSize);
-            
-            chunk.forEach(feature => {
-                const card = this.createFeatureCard(feature);
-                container.appendChild(card);
-            });
-
-            index += chunkSize;
-
-            if (index < sortedFeatures.length) {
-                requestAnimationFrame(renderChunk);
-            } else {
-                console.log(`✅ ${sortedFeatures.length} features rendered`);
-            }
-        };
-
-        renderChunk();
+        
+        // Separar por categoría
+        const trainingFeatures = sortedFeatures.filter(f => f.category === 'training');
+        const productivityFeatures = sortedFeatures.filter(f => f.category === 'productivity');
+        
+        // Renderizar entrenamiento
+        trainingFeatures.forEach(feature => {
+            const card = this.createFeatureCard(feature);
+            trainingContainer.appendChild(card);
+        });
+        
+        // Renderizar productividad
+        productivityFeatures.forEach(feature => {
+            const card = this.createFeatureCard(feature);
+            productivityContainer.appendChild(card);
+        });
+        
+        console.log(`✅ ${trainingFeatures.length} training features + ${productivityFeatures.length} productivity features rendered`);
     },
 
     /**

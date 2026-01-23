@@ -114,7 +114,7 @@ const App = {
             // 🔧 RENDERIZADO SECUENCIAL CON AWAIT
             // 1. Features (con verificación)
             if (features.length > 0) {
-                DOMBuilder.renderFeatures(features, 'features-grid');
+                DOMBuilder.renderFeatures(features);
                 await this.waitForFeaturesToRender();
             } else {
                 featuresContainer.innerHTML = '<p class="loading-placeholder">❌ Error cargando funcionalidades</p>';
@@ -257,18 +257,21 @@ const App = {
 
     /**
      * ✅ LIGHTBOX: Solo se ejecuta DESPUÉS de verificar que las imágenes existen
+     * MODIFICADO: Excluye videos de YouTube
      */
     async attachLightboxListeners() {
         try {
             const { LightboxManager } = await import('./lightbox.js');
             
-            // Inicializar lightbox sin listeners automáticos
             LightboxManager.initWithoutImageListeners();
-            
-            // Exponer globalmente
             window.LightboxManager = LightboxManager;
             
-            // 🔧 VERIFICACIÓN FINAL antes de adjuntar listeners
+            // 🔧 GUARDAR RECUENTOS ESPERADOS
+            // Restar 1 al count de screenshots porque el video no es imagen
+            this.expectedScreenshotCount = screenshots.filter(s => s.type !== 'video').length;
+            this.expectedFeatureCount = features.length;
+
+            // Solo adjuntar a IMÁGENES (no videos)
             const images = document.querySelectorAll('.screenshot-img');
             const EXPECTED = this.expectedScreenshotCount;
             
@@ -276,10 +279,15 @@ const App = {
                 console.warn(`⚠️ Image count mismatch! Expected: ${EXPECTED}, Found: ${images.length}`);
             }
             
-            // Adjuntar listeners a TODAS las imágenes encontradas
             images.forEach((img) => {
                 const card = img.closest('.screenshot-card');
                 if (!card) return;
+                
+                // IMPORTANTE: NO adjuntar lightbox a cards de video
+                if (card.querySelector('.video-wrapper')) {
+                    console.log('   Skipping video card');
+                    return;
+                }
                 
                 card.style.cursor = 'pointer';
                 
@@ -307,7 +315,7 @@ const App = {
             console.error('Error attaching lightbox:', error);
         }
     }
-};
+    };
 
 // Inicializar aplicación INMEDIATAMENTE
 App.init();
