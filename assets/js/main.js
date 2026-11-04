@@ -96,12 +96,12 @@ function initLightbox() {
         img.src = src;
         img.alt = alt || '';
         box.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        document.body.classList.add('no-scroll');
         close.focus();
     };
     const hide = () => {
         box.classList.remove('open');
-        document.body.style.overflow = '';
+        document.body.classList.remove('no-scroll');
         if (opener) opener.focus();
     };
 
@@ -168,28 +168,9 @@ async function initVersion() {
     }
 }
 
-/* ---------- Google Analytics, diferido ---------- */
-function initAnalytics() {
-    const ID = 'G-GDQQ9ND6V4';
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const s = document.createElement('script');
-            s.async = true;
-            s.src = `https://www.googletagmanager.com/gtag/js?id=${ID}`;
-            s.onload = () => {
-                window.dataLayer = window.dataLayer || [];
-                function gtag() { window.dataLayer.push(arguments); }
-                gtag('js', new Date());
-                gtag('config', ID, { anonymize_ip: true });
-            };
-            document.head.appendChild(s);
-        }, 2000);
-    });
-}
-
 // initReveal va primero: si algo falla despues, el contenido sigue visible.
 // Cada inicializador es independiente para que un error no arrastre a los demas.
-[initReveal, initTheme, initHeader, initTabs, initLightbox, initVideo, initCopy, initVersion, initAnalytics]
+[initReveal, initTheme, initHeader, initTabs, initLightbox, initVideo, initCopy, initVersion]
     .forEach((init) => {
         try { init(); } catch (e) { console.error(`${init.name}:`, e); }
     });
