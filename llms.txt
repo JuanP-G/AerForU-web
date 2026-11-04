@@ -5,6 +5,7 @@
 ## Enlaces
 
 - [Página principal](https://aerforu-web.netlify.app/): funciones, instalación y preguntas frecuentes.
+- [Cómo guardar tus soluciones de Acepta el Reto](https://aerforu-web.netlify.app/guia/guardar-soluciones-acepta-el-reto/): guía para descargar en un ZIP el código de tus envíos aceptados.
 - [Privacidad](https://aerforu-web.netlify.app/privacidad/): qué datos trata la web.
 - [Código fuente y descargas](https://github.com/Jaimepas77/AeRForU): repositorio público de la extensión.
 - [Incidencias y sugerencias](https://github.com/Jaimepas77/AeRForU/issues): dónde reportar errores o proponer mejoras.
