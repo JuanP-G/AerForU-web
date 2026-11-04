@@ -107,7 +107,7 @@ ul, ol { list-style: none; }
 .shell { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 .ic { width: 1.25em; height: 1.25em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .ic-fill { fill: currentColor; stroke: none; }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* ---------- Cabecera ---------- */
 .stripe { height: 4px; background: linear-gradient(90deg, var(--brand-blue) 0 78%, var(--brand-orange) 78% 100%); }
