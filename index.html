@@ -2,489 +2,382 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Canonical URL - CRÍTICO para SEO -->
-    <link rel="canonical" href="https://aerforu.netlify.app/">
-    
-    <!-- ============================================
-         RESOURCE HINTS - Alto Impacto en Performance
-         ============================================ -->
-    
-    <!-- 1. Preconnect a dominios externos (Early Connection) -->
-    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
-    <link rel="preconnect" href="https://api.github.com" crossorigin>
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    
-    <!-- 2. Preload de recursos críticos (JSON) -->
-    <link rel="preload" href="./assets/data/features.json" as="fetch" crossorigin>
-    <link rel="preload" href="./assets/data/screenshots.json" as="fetch" crossorigin>
-    
-    <!-- 3. Preload de imagen crítica (logo visible inmediatamente) -->
-    <link rel="preload" href="./assets/images/logo.png" as="image">
-    
-    <!-- 4. Preload de CSS crítico -->
-    <link rel="preload" href="./assets/css/variables.css" as="style">
-    <link rel="preload" href="./assets/css/main.css" as="style">
-    
-    <!-- 5. Modulepreload para JavaScript crítico -->
-    <link rel="modulepreload" href="./assets/js/app.js">
-    <link rel="modulepreload" href="./assets/js/theme-manager.js">
-    <link rel="modulepreload" href="./assets/js/utils.js">
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="AeRForU es la mejor extensión para Acepta el Reto. Añade niveles de dificultad, categorías, estadísticas avanzadas y marcado visual de problemas resueltos.">
-    <meta name="keywords" content="AeRForU, Acepta el Reto, extensión Chrome, programación competitiva, algoritmos">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AeRForU | Extensión para Acepta el Reto</title>
+    <meta name="description" content="AeRForU es una extensión de navegador para Acepta el Reto. Muestra la dificultad de cada problema, marca tu progreso en los listados y añade categorías, estadísticas y descarga de tus envíos aceptados.">
     <meta name="author" content="Jaime Pastrana García">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph -->
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0b64a8">
+    <link rel="canonical" href="https://aerforu.netlify.app/">
+
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
     <meta property="og:url" content="https://aerforu.netlify.app/">
-    <meta property="og:title" content="AeRForU - La Mejor Extensión para Acepta el Reto">
-    <meta property="og:description" content="Extensión gratuita que mejora tu experiencia en Acepta el Reto">
+    <meta property="og:title" content="AeRForU | Extensión para Acepta el Reto">
+    <meta property="og:description" content="Dificultad visible, progreso marcado por colores, categorías y estadísticas en Acepta el Reto.">
     <meta property="og:image" content="https://aerforu.netlify.app/assets/images/og-image.png">
-    
-    <!-- Twitter Card -->
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="AeRForU, extensión para Acepta el Reto, junto a un listado de problemas con el progreso marcado por colores">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AeRForU - Extensión para Acepta el Reto">
-    <meta name="twitter:description" content="Añade niveles de dificultad, categorías y estadísticas">
-    
-    <title>AeRForU - La Mejor Extensión para Acepta el Reto</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./assets/images/logo.png">
-    
-    <!-- CSS CRÍTICO INLINE para First Paint rápido -->
-    <style>
-        :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --bg: #ffffff;
-            --bg-light: #f8fafc;
-            --bg-card: #ffffff;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
-            --border-radius: 16px;
-            --border-radius-lg: 24px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            --max-width: 1280px;
-            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-        }
-        [data-theme="dark"] {
-            --text: #f1f5f9;
-            --text-light: #cbd5e1;
-            --bg: #0f172a;
-            --bg-light: #1e293b;
-            --bg-card: #1e293b;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-        body {
-            font-family: var(--font-family);
-            line-height: 1.6;
-            color: var(--text);
-            background: var(--bg-light);
-            overflow-x: hidden;
-        }
-        header {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(12px);
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1030;
-            box-shadow: var(--shadow);
-            border-bottom: 1px solid rgba(102, 126, 234, 0.08);
-        }
-        nav {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--text);
-        }
-        .logo-img { border-radius: 10px; }
-        .hero {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 160px 2rem 120px;
-            text-align: center;
-            margin-top: 70px;
-            position: relative;
-        }
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-        }
-        .loading-placeholder {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: var(--border-radius-lg);
-            text-align: center;
-            color: var(--text-light);
-        }
-    </style>
-    
-    <!-- CSS NO CRÍTICO con carga asíncrona -->
-    <link rel="stylesheet" href="./assets/css/variables.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./assets/css/main.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./assets/css/components.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./assets/css/screenshots.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./assets/css/installation.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./assets/css/version-info.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./assets/css/footer.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./assets/css/download-button.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./assets/css/responsive.css" media="print" onload="this.media='all'">
-    
-    <noscript>
-        <link rel="stylesheet" href="./assets/css/variables.css">
-        <link rel="stylesheet" href="./assets/css/main.css">
-        <link rel="stylesheet" href="./assets/css/components.css">
-        <link rel="stylesheet" href="./assets/css/screenshots.css">
-        <link rel="stylesheet" href="./assets/css/installation.css">
-        <link rel="stylesheet" href="./assets/css/version-info.css">
-        <link rel="stylesheet" href="./assets/css/footer.css">
-        <link rel="stylesheet" href="./assets/css/download-button.css">
-        <link rel="stylesheet" href="./assets/css/responsive.css">
-    </noscript>
+    <meta name="twitter:image" content="https://aerforu.netlify.app/assets/images/og-image.png">
+    <meta name="twitter:title" content="AeRForU | Extensión para Acepta el Reto">
+    <meta name="twitter:description" content="Dificultad visible, progreso marcado por colores, categorías y estadísticas en Acepta el Reto.">
 
-    <!-- Google Analytics DIFERIDO - No bloquea render -->
+    <link rel="icon" href="./assets/images/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/icon32.png">
+    <link rel="apple-touch-icon" href="./assets/images/logo-192.png">
+
+    <!-- Tema antes del primer pintado, para evitar el destello -->
     <script>
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            var script = document.createElement('script');
-            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-GDQQ9ND6V4';
-            script.async = true;
-            document.head.appendChild(script);
-            
-            script.onload = function() {
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-GDQQ9ND6V4', {
-                    'send_page_view': true,
-                    'anonymize_ip': true
-                });
-            };
-        }, 2000);
-    });
+    (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+            var t = localStorage.getItem('theme');
+            if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+        } catch (e) {}
+    })();
     </script>
 
-    <!-- Schema.org JSON-LD - Optimizado para Bing -->
+    <link rel="preload" href="./assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/fonts/source-sans-3-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <script type="module" src="./assets/js/main.js"></script>
+
     <script type="application/ld+json">
     {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "AeRForU - Extensión para Acepta el Reto",
-    "alternateName": ["Acepta el Reto Extensión", "AeRForU Chrome Extension"],
-    "applicationCategory": "BrowserApplication",
-    "operatingSystem": ["Chrome", "Edge", "Brave", "Chromium"],
-    "url": "https://aerforu.netlify.app/",
-    "downloadUrl": "https://github.com/Jaimepas77/AeRForU/archive/refs/heads/main.zip",
-    "softwareVersion": "1.0.12",
-    "description": "Extensión gratuita y open source que mejora la experiencia en Acepta el Reto (aceptaelreto.com). Añade niveles de dificultad, categorías, marcado visual AC/WA y estadísticas detalladas.",
-    "screenshot": "https://aerforu.netlify.app/assets/images/screenshots/screenshot-1.webp",
-    "image": "https://aerforu.netlify.app/assets/images/logo.png",
-    "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock"
-    },
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "ratingCount": "127",
-        "bestRating": "5"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "Jaime Pastrana García",
-        "url": "https://github.com/Jaimepas77"
-    },
-    "publisher": {
-        "@type": "Organization",
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
         "name": "AeRForU",
-        "logo": {
-        "@type": "ImageObject",
-        "url": "https://aerforu.netlify.app/assets/images/logo.png"
-        }
-    },
-    "featureList": [
-        "Niveles de dificultad en problemas",
-        "Marcado visual AC (verde) y WA (rojo)",
-        "Categorías y temas de algoritmos",
-        "Recomendaciones de problemas similares",
-        "Estadísticas avanzadas",
-        "Descarga de código fuente"
-    ],
-    "keywords": "acepta el reto, aceptaelreto, extensión chrome, programación competitiva, juez online españa"
+        "alternateName": "Acepta el Reto for u!",
+        "description": "Extensión de navegador para Acepta el Reto que muestra la dificultad de los problemas, marca el progreso en los listados y añade categorías, estadísticas y descarga de envíos aceptados.",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome, Edge y navegadores basados en Chromium",
+        "url": "https://aerforu.netlify.app/",
+        "downloadUrl": "https://github.com/Jaimepas77/AeRForU/archive/refs/heads/main.zip",
+        "inLanguage": "es-ES",
+        "image": "https://aerforu.netlify.app/assets/images/logo-512.png",
+        "screenshot": "https://aerforu.netlify.app/assets/images/showcase/lista.webp",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "author": { "@type": "Person", "name": "Jaime Pastrana García", "url": "https://github.com/Jaimepas77" }
     }
     </script>
-
-    <!-- WebSite Schema -->
-    <script type="application/ld+json">
-    {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "AeRForU - Extensión para Acepta el Reto",
-    "url": "https://aerforu.netlify.app/",
-    "description": "Sitio oficial de AeRForU, extensión para Acepta el Reto",
-    "inLanguage": "es-ES",
-    "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://github.com/Jaimepas77/AeRForU/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-    }
-    }
-    </script>
-
-    <!-- Breadcrumb Schema -->
-    <script type="application/ld+json">
-    {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Inicio",
-        "item": "https://aerforu.netlify.app/"
-        },
-        {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Funcionalidades",
-        "item": "https://aerforu.netlify.app/#features"
-        },
-        {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Capturas",
-        "item": "https://aerforu.netlify.app/#screenshots"
-        },
-        {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "Instalación",
-        "item": "https://aerforu.netlify.app/#installation"
-        }
-    ]
-    }
-    </script>
-
 </head>
 <body>
-    <header id="header">
-        <nav>
-            <a href="/" class="logo" aria-label="AeRForU - Ir a inicio">
-                <img src="./assets/images/logo.png" alt="Logo AeRForU" class="logo-img" width="40" height="40" fetchpriority="high" decoding="async">
-                <span>AeRForU</span>
+    <!-- Iconos (estilo Lucide, licencia ISC) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-15.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+            <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+            <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></symbol>
+            <symbol id="i-github" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+            <symbol id="i-bug" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88M14.12 3.88 16 2M9 7.13v-1a3 3 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6zM12 20v-9M6.53 9C4.6 8.8 3 7.1 3 5M6 13H2M3 21c0-2.1 1.7-3.9 3.8-4M20.97 5c0 2.1-1.6 3.8-3.5 4M22 13h-4M17.2 17c2.1.1 3.8 1.9 3.8 4"/></symbol>
+            <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+            <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+            <symbol id="i-idea" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></symbol>
+            <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+            <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+            <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+            <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+            <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+            <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16M18 17V9M13 17V5M8 17v-3"/></symbol>
+            <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
+            <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+            <symbol id="i-archive" viewBox="0 0 24 24"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M10 12h4"/></symbol>
+            <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></symbol>
+            <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+            <symbol id="i-list" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7M14 9h7M14 15h7M14 20h7"/></symbol>
+            <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/></symbol>
+            <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></symbol>
+            <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></symbol>
+        </defs>
+    </svg>
+
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <div class="stripe" aria-hidden="true"></div>
+
+    <header class="top" id="top">
+        <div class="shell">
+            <a class="brand" href="#inicio" aria-label="AeRForU, ir al inicio">
+                <img src="./assets/images/logo-192.png" alt="" width="34" height="34">
+                AeRForU
             </a>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="#features">Funcionalidades</a></li>
-                    <li><a href="#screenshots">Capturas</a></li>
-                    <li><a href="#installation">Instalación</a></li>
-                    <li><a href="https://github.com/Jaimepas77/AeRForU" target="_blank" rel="noopener">GitHub</a></li>
-                </ul>
-                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar entre tema claro y oscuro">
-                    <span class="theme-icon" aria-hidden="true">🌙</span>
+            <nav class="nav" aria-label="Principal">
+                <a class="link" href="#como-funciona">Cómo funciona</a>
+                <a class="link" href="#funciones">Funciones</a>
+                <a class="link" href="#instalacion">Instalación</a>
+                <a class="icon-btn" href="https://github.com/Jaimepas77/AeRForU" target="_blank" rel="noopener" aria-label="Código fuente en GitHub">
+                    <svg class="ic ic-fill" aria-hidden="true"><use href="#i-github"/></svg>
+                </a>
+                <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Cambiar entre modo claro y oscuro">
+                    <svg class="ic i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+                    <svg class="ic i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
                 </button>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>La Mejor Extensión para Acepta el Reto</h1>
-            <p>Extensión gratuita que añade niveles de dificultad, categorías de problemas, estadísticas avanzadas y marcado visual de problemas resueltos a aceptaelreto.com</p>
-            <div class="cta-buttons">
-                <a href="https://github.com/Jaimepas77/AeRForU/archive/refs/heads/main.zip" class="btn btn-primary" download aria-label="Descargar extensión AeRForU gratis">
-                    <span aria-hidden="true">⬇️</span>
-                    <span>Descargar</span>
-                </a>
-                <a href="https://github.com/Jaimepas77/AeRForU" target="_blank" rel="noopener" class="btn btn-secondary" aria-label="Ver código fuente en GitHub">
-                    <span aria-hidden="true">📦</span>
-                    <span>Ver en GitHub</span>
-                </a>
-            </div>
-            <div id="version-info" aria-live="polite"></div>
-        </section>
-
-        <section id="features" class="section">
-            <h2 class="section-title">✨ Funcionalidades Principales</h2>
-            <p class="section-subtitle">Mejoramos tu experiencia de usuario (UX) con las siguientes herramientas</p>
-            
-            <!-- Entrenamiento Inteligente -->
-            <div style="margin-bottom: 3rem;">
-                <h3 style="font-size: 1.75rem; color: var(--primary); text-align: center; margin-bottom: 1rem; font-weight: 700;">
-                    🧠 Entrenamiento Inteligente
-                </h3>
-                <div id="features-grid-training" class="features-grid">
-                    <div class="loading-placeholder">
-                        <p>⏳ Cargando funcionalidades de entrenamiento...</p>
+    <main id="contenido">
+        <section class="hero" id="inicio">
+            <div class="shell hero-grid">
+                <div>
+                    <p class="eyebrow rise" style="--i:0">Extensión para Acepta el Reto</p>
+                    <h1 class="rise" style="--i:1">Un entrenamiento <em>más claro</em>, desde el propio listado</h1>
+                    <p class="lede rise" style="--i:2">AeRForU añade la dificultad de cada problema, marca lo que has resuelto y lo que has intentado, y reúne categorías, estadísticas y copia de tu código.</p>
+                    <div class="actions rise" style="--i:3">
+                        <a class="btn btn-download" href="https://github.com/Jaimepas77/AeRForU/archive/refs/heads/main.zip" download>
+                            <span class="dl-badge"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></span>
+                            <span class="dl-text">Descargar extensión<small>ZIP · versión <span data-version>1.0.14</span></small></span>
+                        </a>
+                        <a class="btn btn-ghost" href="#instalacion">Cómo instalarla</a>
                     </div>
+                    <ul class="hero-meta rise" style="--i:4">
+                        <li><span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Chrome, Edge y Chromium</span></li>
+                        <li><span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Código abierto</span></li>
+                    </ul>
                 </div>
-            </div>
-            
-            <!-- Productividad y Gestión -->
-            <div>
-                <h3 style="font-size: 1.75rem; color: var(--secondary); text-align: center; margin-bottom: 1rem; font-weight: 700;">
-                    ⚡ Productividad y Gestión
-                </h3>
-                <div id="features-grid-productivity" class="features-grid">
-                    <div class="loading-placeholder">
-                        <p>⏳ Cargando funcionalidades de productividad...</p>
+
+                <div class="stage">
+                    <div class="frame">
+                        <div class="frame-bar"><i></i><i></i><i></i><span>aceptaelreto.com/problems/categories.php</span></div>
+                        <img src="./assets/images/showcase/lista.webp" alt="Listado de problemas de Acepta el Reto con filas verdes para problemas resueltos, filas rojas para intentados y etiqueta TLE" width="964" height="667" fetchpriority="high">
                     </div>
+                    <div class="chip chip-1"><b class="ok">AC</b>Resuelto</div>
+                    <div class="chip chip-2"><b class="bad">TLE</b>Intentado</div>
+                    <div class="chip chip-3">Nivel 30<span class="level-bar" aria-hidden="true"><i></i></span></div>
                 </div>
             </div>
         </section>
 
-                <section id="screenshots" class="screenshots">
-                    <div class="screenshots-container">
-                        <h2 class="section-title">Capturas de Pantalla</h2>
-                        <p class="section-subtitle">Descubre cómo AeRForU mejora visualmente tu experiencia</p>
-                        <div id="screenshots-gallery" class="screenshots-gallery">
-                            <div class="loading-placeholder">
-                                <p>⏳ Cargando capturas de pantalla...</p>
-                            </div>
-                        </div>
+        <div class="band">
+            <div class="shell">
+                <div class="fact"><strong>7</strong><span>funciones nuevas</span></div>
+                <div class="fact"><strong>Chromium</strong><span>Chrome, Edge, Brave</span></div>
+                <div class="fact"><strong>Abierto</strong><span>código en GitHub</span></div>
+                <div class="fact"><strong>v<span data-version>1.0.14</span></strong><span>versión actual</span></div>
+            </div>
+        </div>
+
+        <section class="section" id="como-funciona">
+            <div class="shell">
+                <div class="section-head reveal">
+                    <span class="kicker">Cómo funciona</span>
+                    <h2>Las mejoras aparecen en las páginas que ya usas</h2>
+                    <p class="sub">No hay otra aplicación que abrir. La extensión modifica Acepta el Reto mientras navegas.</p>
+                </div>
+
+                <div class="tabs reveal" role="tablist" aria-label="Qué cambia en cada página">
+                    <button class="tab" role="tab" id="tab-lista" aria-controls="panel-lista" aria-selected="true"><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg>Listados</button>
+                    <button class="tab" role="tab" id="tab-enunciado" aria-controls="panel-enunciado" aria-selected="false" tabindex="-1"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Enunciados</button>
+                    <button class="tab" role="tab" id="tab-estadisticas" aria-controls="panel-estadisticas" aria-selected="false" tabindex="-1"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Estadísticas</button>
+                    <button class="tab" role="tab" id="tab-ajustes" aria-controls="panel-ajustes" aria-selected="false" tabindex="-1"><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg>Ajustes</button>
+                </div>
+
+                <div class="panel show reveal" role="tabpanel" id="panel-lista" aria-labelledby="tab-lista">
+                    <div>
+                        <h3>Tu progreso, a simple vista</h3>
+                        <p>En cada listado de problemas, las filas cambian de color según tu historial.</p>
+                        <ul>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Verde para los problemas resueltos (AC).</span></li>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Rojo para los intentados, con la etiqueta del veredicto (WA, CE, TLE).</span></li>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Los colores se pueden cambiar desde los ajustes.</span></li>
+                        </ul>
                     </div>
-                </section>
+                    <div class="frame-wrap"><div class="frame"><img class="zoomable" src="./assets/images/showcase/lista.webp" alt="Listado de la categoría Nochevieja 2023/2024 con problemas resueltos en verde e intentados en rojo" width="964" height="667" loading="lazy"></div></div>
+                </div>
 
-                <section id="installation" class="section">
-                    <h2 class="section-title">Cómo Instalar AeRForU</h2>
-                    <p class="section-subtitle">Guía paso a paso para instalar la extensión</p>
-                    <div id="installation-steps" class="installation-steps">
-                        <div class="loading-placeholder">
-                            <p>⏳ Cargando instrucciones de instalación...</p>
-                        </div>
+                <div class="panel" role="tabpanel" id="panel-enunciado" aria-labelledby="tab-enunciado" hidden>
+                    <div>
+                        <h3>Contexto dentro del enunciado</h3>
+                        <p>En la columna lateral del problema aparecen dos desplegables nuevos.</p>
+                        <ul>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Categorías del problema: ordenación, grafos, programación dinámica.</span></li>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Otros problemas relacionados para seguir practicando el mismo tema.</span></li>
+                        </ul>
                     </div>
-                </section>
+                    <div class="frame-wrap"><div class="frame"><img class="zoomable" src="./assets/images/showcase/enunciado.webp" alt="Enunciado de un problema con el desplegable de categorías en la columna izquierda" width="658" height="540" loading="lazy"></div></div>
+                </div>
 
-        <section class="seo-content">
-            <article>
-                <h2>¿Qué es AeRForU?</h2>
-                <p><strong>AeRForU</strong> es la extensión definitiva para mejorar tu experiencia en Acepta el Reto.</p>
-                
-                <h3>Características principales</h3>
-                <ul>
-                    <li><strong>Niveles de dificultad:</strong> Visualiza la complejidad de cada problema.</li>
-                    <li><strong>Marcado automático:</strong> AC en verde, WA u otros veredictos en rojo.</li>
-                    <li><strong>Categorización:</strong> Accede a categorías de algoritmos.</li>
-                    <li><strong>Recomendaciones:</strong> Descubre problemas similares.</li>
-                </ul>
+                <div class="panel" role="tabpanel" id="panel-estadisticas" aria-labelledby="tab-estadisticas" hidden>
+                    <div>
+                        <h3>Estadísticas con nivel</h3>
+                        <p>La página de estadísticas de cada problema incluye su nivel de dificultad junto a los datos de envíos.</p>
+                        <ul>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Envíos totales y usuarios que lo han intentado o conseguido.</span></li>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Lenguajes usados y reparto de veredictos.</span></li>
+                        </ul>
+                    </div>
+                    <div class="frame-wrap"><div class="frame"><img class="zoomable" src="./assets/images/showcase/estadisticas.webp" alt="Página de estadísticas de un problema con gráficos de lenguajes y veredictos y una barra de nivel 30" width="969" height="423" loading="lazy"></div></div>
+                </div>
 
-                <h3>Compatibilidad</h3>
-                <p>Funciona en Chrome, Edge y navegadores basados en Chromium.</p>
-            </article>
+                <div class="panel narrow" role="tabpanel" id="panel-ajustes" aria-labelledby="tab-ajustes" hidden>
+                    <div>
+                        <h3>Ajustes en un clic</h3>
+                        <p>El icono de la extensión abre un panel pequeño para adaptar el aspecto y descargar tu código.</p>
+                        <ul>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Texto en negrita y colores de resuelto e intentado.</span></li>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Enlaces en las listas de problemas.</span></li>
+                            <li><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Descarga de todos tus envíos aceptados.</span></li>
+                        </ul>
+                    </div>
+                    <div class="frame-wrap"><div class="frame"><img class="zoomable" src="./assets/images/showcase/ajustes.webp" alt="Panel emergente de la extensión con interruptores, selectores de color y botón de descarga" width="286" height="542" loading="lazy"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="funciones">
+            <div class="shell">
+                <div class="section-head reveal">
+                    <span class="kicker">Funciones</span>
+                    <h2>Siete mejoras pensadas para practicar mejor</h2>
+                    <p class="sub">Tres para entrenar con criterio y cuatro para trabajar con más comodidad.</p>
+                </div>
+
+                <h3 class="group-title reveal">Entrenamiento</h3>
+                <div class="cards">
+                    <article class="card reveal" style="--i:0">
+                        <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span>
+                        <h4>Dificultad visible</h4>
+                        <p>El nivel de cada problema aparece en el listado y en tu perfil, sin abrir los enunciados uno a uno.</p>
+                    </article>
+                    <article class="card reveal" style="--i:1">
+                        <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg></span>
+                        <h4>Categorías</h4>
+                        <p>Desplegable con las categorías del problema en el propio enunciado.</p>
+                        <div class="media"><div><img src="./assets/images/showcase/categorias.webp" alt="Desplegable de categorías con etiquetas como bucles simples y ordenación" width="186" height="267" loading="lazy"></div></div>
+                    </article>
+                    <article class="card reveal" style="--i:2">
+                        <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg></span>
+                        <h4>Problemas similares</h4>
+                        <p>Sugerencias de problemas parecidos para practicar un tema concreto.</p>
+                        <div class="media"><div><img src="./assets/images/showcase/similares.webp" alt="Desplegable de otros problemas con una lista de títulos relacionados" width="188" height="305" loading="lazy"></div></div>
+                    </article>
+                </div>
+
+                <h3 class="group-title reveal">Productividad</h3>
+                <div class="cards">
+                    <article class="card reveal" style="--i:0">
+                        <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg></span>
+                        <h4>Seguimiento del progreso</h4>
+                        <p>Los problemas resueltos (AC) se marcan en verde y los intentados (WA, CE, TLE) en rojo en todos los listados.</p>
+                    </article>
+                    <article class="card reveal" style="--i:1">
+                        <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-archive"/></svg></span>
+                        <h4>Copia de tu código</h4>
+                        <p>Descarga con un clic el código de todos tus envíos aceptados y guárdalo en tu equipo.</p>
+                    </article>
+                    <article class="card reveal" style="--i:2">
+                        <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-shuffle"/></svg></span>
+                        <h4>Problema aleatorio</h4>
+                        <p>Botón en la página de inicio para saltar a un problema al azar.</p>
+                    </article>
+                    <article class="card reveal" style="--i:3">
+                        <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg></span>
+                        <h4>Enlaces rápidos</h4>
+                        <p>Acceso directo a AER Stats y otras herramientas desde la propia interfaz.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="demo">
+            <div class="shell">
+                <div class="section-head reveal">
+                    <span class="kicker">Vídeo</span>
+                    <h2>Míralo funcionando</h2>
+                    <p class="sub">Un recorrido por las funciones en Acepta el Reto.</p>
+                </div>
+                <button class="video reveal" id="videoPlay" type="button" data-video="G-cCFW14NPo" aria-label="Reproducir el vídeo de demostración">
+                    <img src="./assets/images/showcase/enunciado.webp" alt="" width="658" height="540" loading="lazy">
+                    <span class="play"><span><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg></span></span>
+                    <span class="label">Demostración de AeRForU</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="install" id="instalacion">
+            <div class="shell">
+                <div class="section-head reveal">
+                    <span class="kicker">Instalación</span>
+                    <h2>En marcha en cuatro pasos</h2>
+                    <p class="sub">La extensión se carga desde la carpeta del proyecto. Tarda unos dos minutos.</p>
+                </div>
+
+                <ol class="steps">
+                    <li class="step reveal" style="--i:0">
+                        <h3>Descarga el proyecto</h3>
+                        <p>Baja el ZIP desde GitHub (botón Code, opción Download ZIP) y descomprímelo en una carpeta.</p>
+                        <div class="shot"><img class="zoomable" src="./assets/images/showcase/paso-descarga.webp" alt="Menú Code de GitHub con la opción Download ZIP resaltada" width="768" height="706" loading="lazy"></div>
+                    </li>
+                    <li class="step reveal" style="--i:1">
+                        <h3>Abre las extensiones</h3>
+                        <p>Escribe esta dirección en una pestaña nueva y activa el modo de desarrollador.</p>
+                        <div class="copy-row">
+                            <code>chrome://extensions</code>
+                            <button class="copy-btn" type="button" data-copy="chrome://extensions"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg><span>Copiar</span></button>
+                        </div>
+                        <div class="shot"><img class="zoomable" src="./assets/images/showcase/paso-extensiones.webp" alt="Página de extensiones de Chrome con el interruptor del modo desarrollador" width="764" height="409" loading="lazy"></div>
+                    </li>
+                    <li class="step reveal" style="--i:2">
+                        <h3>Carga la carpeta</h3>
+                        <p>Pulsa «Cargar descomprimida» y selecciona la carpeta que extrajiste en el primer paso.</p>
+                    </li>
+                    <li class="step reveal" style="--i:3">
+                        <h3>Abre Acepta el Reto</h3>
+                        <p>Entra en aceptaelreto.com con tu cuenta. Las mejoras se aplican solas en cada página.</p>
+                    </li>
+                </ol>
+
+                <div class="install-cta reveal">
+                    <a class="btn btn-download" href="https://github.com/Jaimepas77/AeRForU/archive/refs/heads/main.zip" download>
+                        <span class="dl-badge"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></span>
+                        <span class="dl-text">Descargar extensión<small>ZIP · versión <span data-version>1.0.14</span></small></span>
+                    </a>
+                    <a class="btn btn-light" href="https://aceptaelreto.com" target="_blank" rel="noopener">
+                        Ir a Acepta el Reto
+                        <svg class="ic" aria-hidden="true"><use href="#i-external"/></svg>
+                    </a>
+                </div>
+                <p class="note">Compatible con Chrome, Edge, Brave y otros navegadores basados en Chromium.</p>
+            </div>
         </section>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-section footer-about">
-                <div class="footer-logo">
-                    <img src="./assets/images/logo.png" alt="Logo AeRForU" width="40" height="40" loading="lazy" decoding="async">
-                    <span>AeRForU</span>
+        <div class="shell">
+            <div class="foot-grid">
+                <div>
+                    <div class="foot-brand"><img src="./assets/images/logo-192.png" alt="" width="34" height="34" loading="lazy">AeRForU</div>
+                    <p class="foot-about">Extensión de código abierto que añade dificultad, progreso, categorías y estadísticas a Acepta el Reto.</p>
                 </div>
-                <p class="footer-description">
-                    Extensión gratuita y open source que mejora tu experiencia en Acepta el Reto con funcionalidades avanzadas de programación competitiva.
-                </p>
-                <div class="footer-version" id="footer-version">
-                    <span class="footer-version-badge">v1.0.12</span>
-                </div>
+                <nav aria-label="Recursos">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="https://github.com/Jaimepas77/AeRForU" target="_blank" rel="noopener"><svg class="ic ic-fill" aria-hidden="true"><use href="#i-github"/></svg>Código fuente</a></li>
+                        <li><a href="https://github.com/Jaimepas77/AeRForU/issues" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-bug"/></svg>Reportar un error</a></li>
+                        <li><a href="https://github.com/Jaimepas77/AeRForU/blob/main/README.md" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg>Documentación</a></li>
+                    </ul>
+                </nav>
+                <nav aria-label="Comunidad">
+                    <h3>Comunidad</h3>
+                    <ul>
+                        <li><a href="https://github.com/Jaimepas77/AeRForU/issues/new" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-idea"/></svg>Sugerir una mejora</a></li>
+                        <li><a href="https://github.com/Jaimepas77" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Autor</a></li>
+                        <li><a href="https://aceptaelreto.com" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg>Acepta el Reto</a></li>
+                    </ul>
+                </nav>
             </div>
-
-            <div class="footer-section">
-                <h4 class="footer-title">Enlaces Rápidos</h4>
-                <ul class="footer-links-list">
-                    <li><a href="#features"><span aria-hidden="true">📊</span> Funcionalidades</a></li>
-                    <li><a href="#screenshots"><span aria-hidden="true">📸</span> Capturas</a></li>
-                    <li><a href="#installation"><span aria-hidden="true">🔧</span> Instalación</a></li>
-                    <li><a href="https://aceptaelreto.com" target="_blank" rel="noopener"><span aria-hidden="true">🎯</span> Acepta el Reto</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4 class="footer-title">Recursos</h4>
-                <ul class="footer-links-list">
-                    <li><a href="https://github.com/Jaimepas77/AeRForU" target="_blank" rel="noopener" aria-label="Ver repositorio en GitHub">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                        </svg>
-                        GitHub
-                    </a></li>
-                    <li><a href="https://github.com/Jaimepas77/AeRForU/issues" target="_blank" rel="noopener"><span aria-hidden="true">🐛</span> Reportar Bug</a></li>
-                    <li><a href="https://github.com/Jaimepas77/AeRForU/blob/main/README.md" target="_blank" rel="noopener"><span aria-hidden="true">📖</span> Documentación</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4 class="footer-title">Comunidad</h4>
-                <ul class="footer-links-list">
-                    <li><a href="https://github.com/Jaimepas77/AeRForU/issues/new" target="_blank" rel="noopener"><span aria-hidden="true">💡</span> Sugerir Feature</a></li>
-                    <li><a href="https://github.com/Jaimepas77" target="_blank" rel="noopener"><span aria-hidden="true">👤</span> Autor</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom-content">
-            <div class="footer-social">
-                <a href="https://github.com/Jaimepas77/AeRForU" target="_blank" rel="noopener"
-                    aria-label="Visitar repositorio en GitHub" class="social-btn">
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-                    </svg>
-                </a>
-                <a href="https://github.com/Jaimepas77/AeRForU/stargazers" target="_blank" rel="noopener"
-                    aria-label="Dar estrella en GitHub" class="social-btn">
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" />
-                    </svg>
-                </a>
-                <a href="https://github.com/Jaimepas77/AeRForU/archive/refs/heads/main.zip" class="social-btn"
-                    aria-label="Descargar extensión" download>
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M8.75 1.75a.75.75 0 00-1.5 0v6.59L4.81 5.9a.75.75 0 00-1.06 1.06l4 4a.75.75 0 001.06 0l4-4a.75.75 0 10-1.06-1.06L8.75 8.34V1.75z" />
-                        <path
-                            d="M2.5 10.5a.5.5 0 01.5.5v2a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-2a.5.5 0 011 0v2a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13v-2a.5.5 0 01.5-.5z" />
-                    </svg>
-                </a>
+            <div class="foot-bottom">
+                <span>&copy; 2026 AeRForU</span>
+                <span>Versión <span data-version>1.0.14</span></span>
             </div>
         </div>
     </footer>
 
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de imágenes ampliadas">
-        <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar visor de imágenes"></button>
-        <div class="lightbox-img-container">
-            <img id="lightboxImg" src="" alt="" decoding="async">
-            <div class="lightbox-caption" id="lightboxCaption"></div>
-        </div>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+        <button type="button" id="lightboxClose" aria-label="Cerrar">&times;</button>
+        <img id="lightboxImg" src="" alt="">
     </div>
-
-    <!-- JavaScript DIFERIDO - Carga al final sin bloquear -->
-    <script type="module" defer src="./assets/js/app.js"></script>
 </body>
 </html>
