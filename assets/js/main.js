@@ -94,7 +94,7 @@ function initLightbox() {
     const open = (src, alt, from) => {
         opener = from;
         img.src = src;
-        img.alt = alt || '';
+        img.alt = alt || 'Imagen ampliada';
         box.classList.add('open');
         document.body.classList.add('no-scroll');
         close.focus();
