@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://aerforu.netlify.app/</loc>
+    <loc>https://aerforu-web.netlify.app/</loc>
     <lastmod>2026-11-04</lastmod>
     <image:image>
-      <image:loc>https://aerforu.netlify.app/assets/images/showcase/lista.webp</image:loc>
+      <image:loc>https://aerforu-web.netlify.app/assets/images/showcase/lista.webp</image:loc>
       <image:title>Listado de problemas con progreso marcado por colores</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://aerforu.netlify.app/assets/images/showcase/enunciado.webp</image:loc>
+      <image:loc>https://aerforu-web.netlify.app/assets/images/showcase/enunciado.webp</image:loc>
       <image:title>Enunciado con categorías desplegables</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://aerforu.netlify.app/assets/images/showcase/estadisticas.webp</image:loc>
+      <image:loc>https://aerforu-web.netlify.app/assets/images/showcase/estadisticas.webp</image:loc>
       <image:title>Estadísticas de un problema con su nivel</image:title>
     </image:image>
   </url>

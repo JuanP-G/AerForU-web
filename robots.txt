@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 Disallow: /.git/
 
-Sitemap: https://aerforu.netlify.app/sitemap.xml
+Sitemap: https://aerforu-web.netlify.app/sitemap.xml

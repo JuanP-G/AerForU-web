@@ -2,7 +2,7 @@
 
 Sitio web de **AeRForU**, extensión para [Acepta el Reto](https://aceptaelreto.com).
 
-Web publicada: [aerforu.netlify.app](https://aerforu.netlify.app/) · Extensión: [Jaimepas77/AeRForU](https://github.com/Jaimepas77/AeRForU)
+Web publicada: [aerforu-web.netlify.app](https://aerforu-web.netlify.app/) · Extensión: [Jaimepas77/AeRForU](https://github.com/Jaimepas77/AeRForU)
 
 ## Tecnología
 
