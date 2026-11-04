@@ -1,0 +1,10 @@
+# AeRForU
+
+> Extensión de navegador para Acepta el Reto (aceptaelreto.com). Muestra la dificultad de cada problema, marca el progreso en los listados, añade categorías, problemas similares y estadísticas, y permite descargar el código de tus envíos aceptados. Funciona en navegadores basados en Chromium (Chrome, Edge, Brave y Opera) y se instala manualmente desde el modo de desarrollador.
+
+## Enlaces
+
+- [Página principal](https://aerforu-web.netlify.app/): funciones, instalación y preguntas frecuentes.
+- [Privacidad](https://aerforu-web.netlify.app/privacidad/): qué datos trata la web.
+- [Código fuente y descargas](https://github.com/Jaimepas77/AeRForU): repositorio público de la extensión.
+- [Incidencias y sugerencias](https://github.com/Jaimepas77/AeRForU/issues): dónde reportar errores o proponer mejoras.
