@@ -335,7 +335,8 @@ footer a { display: inline-flex; align-items: center; gap: 12px; padding: 7px 0;
 footer a .ic { width: 19px; height: 19px; color: #6cc6f2; transition: color .2s; }
 footer a:hover { color: #fff; transform: translateX(3px); }
 footer a:hover .ic { color: var(--brand-orange); }
-.foot-bottom { border-top: 1px solid var(--dark-line); padding: 22px 0 32px; font-size: 14.5px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+#preguntas { padding-bottom: 104px; }
+.foot-bottom { border-top: 1px solid var(--dark-line); padding: 22px 0 32px; font-size: 14.5px; display: flex; justify-content: flex-end; gap: 12px; flex-wrap: wrap; }
 
 /* ---------- Visor de imagenes ---------- */
 .zoomable { cursor: zoom-in; }
@@ -439,7 +440,7 @@ footer a:hover .ic { color: var(--brand-orange); }
 .notfound p { color: var(--muted); max-width: 46ch; font-size: 19px; }
 .notfound .btn { margin-top: 18px; }
 .simple-foot { margin-top: 96px; background: var(--dark-bg); color: var(--dark-muted); font-size: 15px; }
-.simple-foot .shell { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 28px; padding-bottom: 32px; }
+.simple-foot .shell { display: flex; align-items: center; justify-content: flex-end; gap: 12px; flex-wrap: wrap; padding-top: 28px; padding-bottom: 32px; }
 .simple-foot a { color: var(--dark-muted); }
 .simple-foot a:hover { color: #fff; }
 @media (max-width: 640px) { .cards.two { grid-template-columns: minmax(0, 1fr); } .qa { padding: 0 18px; } }
